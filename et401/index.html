@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ET401 × Bobo — Motive needs a tablet. Motive doesn’t bring one.</title>
+<meta name="description" content="Peak × Zebra leave-behind: Motive is the only ELD and it’s BYOD. The ET401 is the cab-ready tablet. Ask Peak for Bobo before the August Motive cutover." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #04060b;
+    --ink-2: #070b14;
+    --ink-3: #0b1120;
+    --paper: #f2f5ff;
+    --paper-dim: rgba(242, 245, 255, 0.62);
+    --paper-faint: rgba(242, 245, 255, 0.38);
+    --blue: #1f69ff;
+    --blue-soft: rgba(31, 105, 255, 0.14);
+    --blue-glow: rgba(31, 105, 255, 0.45);
+    --line: rgba(242, 245, 255, 0.14);
+    --line-strong: rgba(242, 245, 255, 0.28);
+    --display: "Anton", "Arial Narrow", sans-serif;
+    --body: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--blue); color: var(--paper); }
+
+  /* ---- cinematic grain ---- */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---- poster registration marks ---- */
+  .reg {
+    position: fixed;
+    z-index: 55;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .reg::before, .reg::after {
+    content: "";
+    position: absolute;
+    background: var(--paper-faint);
+  }
+  .reg::before { left: 50%; top: 0; width: 1px; height: 100%; }
+  .reg::after { top: 50%; left: 0; height: 1px; width: 100%; }
+  .reg.tl { top: 14px; left: 14px; }
+  .reg.tr { top: 14px; right: 14px; }
+  .reg.bl { bottom: 14px; left: 14px; }
+  .reg.br { bottom: 14px; right: 14px; }
+  @media (max-width: 720px) { .reg { display: none; } }
+
+  /* ---- top bar ---- */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px clamp(20px, 4vw, 56px);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    background: linear-gradient(to bottom, rgba(4, 6, 11, 0.92), rgba(4, 6, 11, 0));
+  }
+  .topbar .brand { display: flex; align-items: center; gap: 12px; color: var(--paper); font-weight: 700; }
+  .topbar .brand .x { color: var(--blue); }
+  .topbar .tag {
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 5px 12px;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+  .topbar .meta { display: flex; align-items: center; gap: 18px; }
+  @media (max-width: 720px) { .topbar .meta .hide-m { display: none; } }
+
+  /* ---- shared layout ---- */
+  .wrap {
+    width: min(1240px, 100% - clamp(40px, 8vw, 112px));
+    margin-inline: auto;
+  }
+
+  section { position: relative; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: var(--blue);
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+    padding: clamp(120px, 16vh, 180px) 0 clamp(64px, 9vh, 120px);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .watermark {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    font-family: var(--display);
+    font-size: clamp(160px, 30vw, 460px);
+    line-height: 0.8;
+    letter-spacing: 0.02em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 245, 255, 0.07);
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(24px, 4vw, 64px);
+    align-items: center;
+  }
+
+  .hero-copy h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(46px, 7.2vw, 112px);
+    line-height: 0.96;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    margin: 26px 0 28px;
+  }
+  .hero-copy h1 .blue { color: var(--blue); }
+  .hero-copy h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--paper);
+  }
+
+  .lede {
+    max-width: 46ch;
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.65;
+    color: var(--paper-dim);
+    font-weight: 500;
+  }
+  .lede strong { color: var(--paper); font-weight: 700; }
+  .lede .blue { color: var(--blue); font-weight: 700; }
+
+  .hero-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 400px;
+  }
+  .hero-stage::before {
+    content: "";
+    position: absolute;
+    width: 86%;
+    aspect-ratio: 1.2;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-glow) 0%, rgba(31, 105, 255, 0.12) 42%, transparent 70%);
+    filter: blur(30px);
+    z-index: 0;
+  }
+  .hero-stage .ring {
+    position: absolute;
+    width: 104%;
+    aspect-ratio: 1.15;
+    border-radius: 50%;
+    border: 1px dashed rgba(242, 245, 255, 0.16);
+    animation: spin 60s linear infinite;
+  }
+  .hero-stage .ring::before {
+    content: "";
+    position: absolute;
+    top: 8%; left: 4%;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 14px var(--blue);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hero-img {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 580px);
+    mix-blend-mode: normal;
+    filter: saturate(1.05) contrast(1.04) drop-shadow(0 34px 54px rgba(0, 0, 0, 0.6));
+    animation: float 7s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(1.2deg); }
+    50% { transform: translateY(-16px) rotate(-1deg); }
+  }
+
+  .hero-badge {
+    position: absolute;
+    z-index: 2;
+    bottom: 4%;
+    right: 2%;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: rgba(4, 6, 11, 0.72);
+    border: 1px solid var(--line-strong);
+    backdrop-filter: blur(6px);
+    padding: 10px 14px;
+    border-radius: 6px;
+    transform: rotate(-3deg);
+  }
+  .hero-badge b { color: var(--blue); }
+
+  /* ---- spec chips: designed objects ---- */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+  }
+  .chip {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(180deg, rgba(242, 245, 255, 0.05), rgba(242, 245, 255, 0.01));
+    border-radius: 8px;
+    padding: 12px 16px 11px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .chip:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(31, 105, 255, 0.22);
+  }
+  .chip::before, .chip::after {
+    content: "";
+    position: absolute;
+    width: 6px; height: 6px;
+    border-color: var(--blue);
+    border-style: solid;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .chip::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .chip::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+  .chip:hover::before, .chip:hover::after { opacity: 1; }
+  .chip .k {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper-faint);
+  }
+  .chip .v {
+    font-family: var(--display);
+    font-size: 19px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .chip.hot { border-color: var(--blue); background: var(--blue-soft); }
+  .chip.hot .v { color: var(--blue); }
+
+  /* ---- ticker ---- */
+  .ticker {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    padding: 14px 0;
+    background: var(--ink-2);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: ticker 30s linear infinite;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    white-space: nowrap;
+  }
+  .ticker-track span { display: inline-flex; align-items: center; gap: 48px; }
+  .ticker-track .dot { color: var(--blue); }
+  @keyframes ticker { to { transform: translateX(-50%); } }
+
+  /* ---- gap object ---- */
+  .gap {
+    padding: clamp(90px, 13vh, 160px) 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 22% 40%, rgba(31, 105, 255, 0.1), transparent 65%),
+      var(--ink);
+  }
+  .gap .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(36px, 6vw, 96px);
+    align-items: center;
+  }
+
+  .gap-object {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 520px);
+    transform: rotate(2.5deg);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    order: 2;
+  }
+  .gap-object:hover { transform: rotate(0.5deg) scale(1.015); }
+  .gap-plate {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    background:
+      radial-gradient(ellipse 90% 70% at 80% 0%, rgba(31, 105, 255, 0.22), transparent 55%),
+      linear-gradient(200deg, #0a1020 0%, #05080f 100%);
+    box-shadow:
+      0 40px 90px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(31, 105, 255, 0.12),
+      0 0 80px rgba(31, 105, 255, 0.14);
+    padding: clamp(26px, 4vw, 42px);
+    overflow: hidden;
+  }
+  .gap-plate::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px dashed rgba(242, 245, 255, 0.22);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .gap-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    margin-bottom: 18px;
+  }
+  .gap-top .pill {
+    color: var(--ink);
+    background: var(--blue);
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 5px 11px;
+    letter-spacing: 0.14em;
+  }
+  .gap-zero {
+    font-family: var(--display);
+    font-size: clamp(120px, 18vw, 200px);
+    line-height: 0.85;
+    letter-spacing: 0.01em;
+    color: transparent;
+    -webkit-text-stroke: 2.5px var(--blue);
+    text-shadow: 0 0 60px rgba(31, 105, 255, 0.35);
+  }
+  .gap-sub {
+    margin-top: 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    line-height: 1.9;
+  }
+  .gap-sub b { color: var(--paper); }
+  .gap-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .gap-flow .node {
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--paper);
+    background: rgba(4, 6, 11, 0.5);
+  }
+  .gap-flow .arrow { color: var(--blue); font-weight: 700; }
+  .gap-barcode {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .gap-barcode svg { height: 34px; width: 46%; opacity: 0.85; }
+  .gap-barcode .num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--paper-faint);
+  }
+  .gap-shadow {
+    position: absolute;
+    inset: auto 8% -26px 8%;
+    height: 40px;
+    background: radial-gradient(ellipse, rgba(31, 105, 255, 0.35), transparent 70%);
+    filter: blur(18px);
+    z-index: -1;
+  }
+
+  .gap-copy h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(38px, 4.6vw, 68px);
+    line-height: 0.98;
+    text-transform: uppercase;
+    margin: 22px 0 22px;
+  }
+  .gap-copy h2 .blue { color: var(--blue); }
+  .gap-copy p {
+    color: var(--paper-dim);
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.7;
+    max-width: 52ch;
+    font-weight: 500;
+  }
+  .gap-copy p + p { margin-top: 14px; }
+  .gap-copy p strong { color: var(--paper); }
+  .gap-copy p .blue { color: var(--blue); font-weight: 700; }
+
+  /* ---- beats ---- */
+  .beats {
+    padding: clamp(90px, 13vh, 170px) 0 clamp(70px, 10vh, 130px);
+    background: var(--ink-2);
+    border-top: 1px solid var(--line);
+  }
+  .beats-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(44px, 7vh, 84px);
+  }
+  .beats-head h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(44px, 7vw, 104px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-top: 22px;
+  }
+  .beats-head h2 .outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--paper);
+  }
+  .beats-head .count {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    padding-bottom: 10px;
+  }
+  .beats-head .count b { color: var(--blue); font-weight: 700; }
+
+  .beat {
+    display: grid;
+    grid-template-columns: 110px 88px minmax(0, 1fr);
+    gap: clamp(18px, 3vw, 44px);
+    align-items: start;
+    padding: clamp(34px, 5vh, 54px) 0;
+    border-top: 1px solid var(--line);
+  }
+  .beat:last-child { border-bottom: 1px solid var(--line); }
+  .beat-num {
+    font-family: var(--mono);
+    font-size: clamp(15px, 1.6vw, 19px);
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    padding-top: 8px;
+  }
+  .beat-icon {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(31, 105, 255, 0.14), rgba(31, 105, 255, 0.02));
+    color: var(--paper);
+    transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+  }
+  .beat:hover .beat-icon {
+    transform: translateY(-4px) rotate(-3deg);
+    box-shadow: 0 14px 40px rgba(31, 105, 255, 0.3);
+    color: var(--blue);
+  }
+  .beat-icon svg { width: 36px; height: 36px; }
+  .beat-body h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 46px);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin-bottom: 14px;
+  }
+  .beat-body h3 .blue { color: var(--blue); }
+  .beat-body p {
+    color: var(--paper-dim);
+    font-size: clamp(15px, 1.35vw, 17px);
+    line-height: 1.7;
+    max-width: 62ch;
+    font-weight: 500;
+  }
+  .beat-body p strong { color: var(--paper); }
+  .beat-body p .blue { color: var(--blue); font-weight: 700; }
+  .beat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .beat-chips .chip { padding: 9px 13px 8px; }
+  .beat-chips .chip .v { font-size: 15px; }
+
+  /* ---- ask ---- */
+  .ask {
+    padding: clamp(110px, 17vh, 210px) 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 110%, rgba(31, 105, 255, 0.22), transparent 65%),
+      var(--ink);
+    border-top: 1px solid var(--line);
+    text-align: center;
+    overflow: hidden;
+  }
+  .ask .eyebrow { justify-content: center; }
+  .ask .eyebrow::after {
+    content: "";
+    width: 34px; height: 2px;
+    background: var(--blue);
+  }
+  .ask h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(52px, 10vw, 156px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin: 26px 0 30px;
+  }
+  .ask h2 .blue { color: var(--blue); text-shadow: 0 0 80px rgba(31, 105, 255, 0.55); }
+  .ask .ask-line {
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.4vw, 15px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    max-width: 62ch;
+    margin: 0 auto;
+    line-height: 2;
+  }
+  .ask .ask-line b { color: var(--paper); }
+  .ask .ask-line .blue { color: var(--blue); font-weight: 700; }
+  .ask-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 44px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--blue);
+    border-radius: 999px;
+    padding: 18px 34px;
+    box-shadow: 0 0 0 1px rgba(31, 105, 255, 0.4), 0 20px 60px rgba(31, 105, 255, 0.35);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .ask-cta:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(31, 105, 255, 0.6), 0 28px 80px rgba(31, 105, 255, 0.5); }
+  .ask-cta svg { width: 16px; height: 16px; }
+
+  /* ---- footer ---- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 34px 0 44px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-faint);
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  footer .blue { color: var(--blue); }
+
+  /* ---- reveal ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+  .reveal-d3 { transition-delay: 0.24s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ---- responsive ---- */
+  @media (max-width: 960px) {
+    .hero .wrap { grid-template-columns: 1fr; gap: 12px; }
+    .hero-stage { min-height: 0; order: -1; margin-bottom: -10px; }
+    .hero-img { width: min(88%, 480px); }
+    .hero-badge { bottom: 0; right: 4%; }
+    .gap .wrap { grid-template-columns: 1fr; }
+    .gap-object { order: 0; width: min(100%, 460px); }
+    .beat { grid-template-columns: 64px minmax(0, 1fr); }
+    .beat-num { grid-column: 1; grid-row: 1; }
+    .beat-icon { grid-column: 1; grid-row: 2; width: 56px; height: 56px; border-radius: 12px; }
+    .beat-icon svg { width: 28px; height: 28px; }
+    .beat-body { grid-column: 2; grid-row: 1 / span 2; }
+  }
+  @media (max-width: 560px) {
+    .hero-copy h1 { font-size: clamp(40px, 12.5vw, 64px); }
+    .gap-zero { font-size: clamp(104px, 32vw, 150px); }
+    .beat { grid-template-columns: 1fr; }
+    .beat-num { grid-column: 1; grid-row: auto; padding-top: 0; }
+    .beat-icon { grid-column: 1; grid-row: auto; }
+    .beat-body { grid-column: 1; grid-row: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reg tl"></div><div class="reg tr"></div><div class="reg bl"></div><div class="reg br"></div>
+
+<header class="topbar">
+  <div class="brand">PEAK <span class="x">×</span> ZEBRA <span class="x">/</span> BOBO</div>
+  <div class="meta">
+    <span class="hide-m">Leave-behind · October</span>
+    <span class="tag">ET401</span>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="watermark" aria-hidden="true">ET401</div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow reveal">Peak × Zebra · Bobo leave-behind</span>
+      <h1 class="reveal reveal-d1">Motive needs a tablet. <span class="blue">Motive doesn’t bring one.</span></h1>
+      <p class="lede reveal reveal-d2">Motive is the <strong>only ELD</strong> — and it’s <span class="blue">BYOD</span>. The cab still needs a tablet, and the <strong>ET401</strong> is built for exactly that seat. <strong>Peak’s Bobo</strong> is the way in.</p>
+      <div class="chips reveal reveal-d3">
+        <div class="chip"><span class="k">Sizes</span><span class="v">8&Prime; / 10.1&Prime;</span></div>
+        <div class="chip"><span class="k">Brightness</span><span class="v">600 nits</span></div>
+        <div class="chip"><span class="k">Seal</span><span class="v">IP68</span></div>
+        <div class="chip"><span class="k">Drop</span><span class="v">4 ft</span></div>
+        <div class="chip"><span class="k">Network</span><span class="v">Verizon cert.</span></div>
+        <div class="chip hot"><span class="k">Model</span><span class="v">BYOD</span></div>
+      </div>
+    </div>
+    <div class="hero-stage reveal reveal-d2">
+      <div class="ring" aria-hidden="true"></div>
+      <img class="hero-img" src="assets/hero.png" alt="Zebra ET401 rugged tablet floating with blue rim light" />
+      <div class="hero-badge">Unit shown: <b>ET401</b> · Cab-ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Peak × Zebra <i class="dot">●</i> Bobo <i class="dot">●</i> ET401 <i class="dot">●</i> Motive-only ELD <i class="dot">●</i> BYOD <i class="dot">●</i> August cutover <i class="dot">●</i></span>
+    <span>Peak × Zebra <i class="dot">●</i> Bobo <i class="dot">●</i> ET401 <i class="dot">●</i> Motive-only ELD <i class="dot">●</i> BYOD <i class="dot">●</i> August cutover <i class="dot">●</i></span>
+  </div>
+</div>
+
+<!-- ============ THE GAP OBJECT ============ -->
+<section class="gap">
+  <div class="wrap">
+    <div class="gap-copy">
+      <span class="eyebrow reveal">The gap</span>
+      <h2 class="reveal reveal-d1">The mandate ships <span class="blue">without</span> the screen.</h2>
+      <p class="reveal reveal-d2">Per the <strong>Aug 29, 2026 FAQ</strong>: Motive is the <strong>only ELD</strong> — and the model is <span class="blue">BYOD</span>. Motive brings the mandate. It does not bring the tablet.</p>
+      <p class="reveal reveal-d3">Somebody’s hardware fills that seat in every cab. The <strong>ET401</strong> is the rugged answer already speaking the network’s language.</p>
+    </div>
+    <div class="gap-object reveal reveal-d2">
+      <div class="gap-plate">
+        <div class="gap-top">
+          <span>Tablets shipped by Motive</span>
+          <span class="pill">BYOD</span>
+        </div>
+        <div class="gap-zero">0</div>
+        <div class="gap-sub">That’s the whole opening.<br /><b>The cab’s tablet is an open purchase.</b></div>
+        <div class="gap-flow">
+          <span class="node">Motive-only ELD</span>
+          <span class="arrow">→</span>
+          <span class="node">BYOD</span>
+          <span class="arrow">→</span>
+          <span class="node">ET401</span>
+        </div>
+        <div class="gap-barcode">
+          <svg viewBox="0 0 120 34" fill="currentColor" aria-hidden="true">
+            <rect x="0" y="0" width="2.5" height="34"/><rect x="5" y="0" width="4" height="34"/><rect x="11" y="0" width="1.5" height="34"/><rect x="15" y="0" width="3" height="34"/><rect x="21" y="0" width="1.5" height="34"/><rect x="25" y="0" width="5" height="34"/><rect x="32" y="0" width="2" height="34"/><rect x="37" y="0" width="1.5" height="34"/><rect x="41" y="0" width="4" height="34"/><rect x="48" y="0" width="1.5" height="34"/><rect x="52" y="0" width="3" height="34"/><rect x="58" y="0" width="5" height="34"/><rect x="65" y="0" width="1.5" height="34"/><rect x="69" y="0" width="2.5" height="34"/><rect x="74" y="0" width="4" height="34"/><rect x="81" y="0" width="1.5" height="34"/><rect x="85" y="0" width="3" height="34"/><rect x="91" y="0" width="1.5" height="34"/><rect x="95" y="0" width="4.5" height="34"/><rect x="102" y="0" width="2" height="34"/><rect x="107" y="0" width="1.5" height="34"/><rect x="111" y="0" width="3.5" height="34"/><rect x="117" y="0" width="3" height="34"/>
+          </svg>
+          <span class="num">BOBO·ET401·BYOD</span>
+        </div>
+      </div>
+      <div class="gap-shadow" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEATS ============ -->
+<section class="beats">
+  <div class="wrap">
+    <div class="beats-head">
+      <div>
+        <span class="eyebrow reveal">Why this lands</span>
+        <h2 class="reveal reveal-d1">Five beats.<br /><span class="outline">One tablet.</span></h2>
+      </div>
+      <div class="count reveal reveal-d2"><b>01–05</b> / ET401 × Bobo</div>
+    </div>
+
+    <article class="beat reveal">
+      <div class="beat-num">01</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/><path d="M9 15.5l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>Motive is the <span class="blue">only ELD</span></h3>
+        <p>The <strong>Aug 29, 2026 FAQ</strong> locks it: <strong>Motive-only ELD</strong>, and the model is <strong>BYOD</strong>. The software decision is made — the hardware decision is the one still on the table.</p>
+        <div class="beat-chips">
+          <div class="chip hot"><span class="k">ELD</span><span class="v">Motive only</span></div>
+          <div class="chip"><span class="k">FAQ</span><span class="v">Aug 29 2026</span></div>
+          <div class="chip"><span class="k">Model</span><span class="v">BYOD</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">02</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7.5 9h9"/><path d="M7.5 12.5h5.5"/><circle cx="17" cy="16" r="0.6"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>The ET401 <span class="blue">fits the cab</span></h3>
+        <p><strong>8&Prime; or 10.1&Prime;</strong>, <strong>600 nits</strong> of daylight-readable screen, <strong>IP68</strong> sealed, rated for the <strong>4 ft drop</strong> — and a <strong>5.1 boot</strong> that’s ready before the pretrip is done.</p>
+        <div class="beat-chips">
+          <div class="chip"><span class="k">Sizes</span><span class="v">8&Prime; / 10.1&Prime;</span></div>
+          <div class="chip"><span class="k">Nits</span><span class="v">600</span></div>
+          <div class="chip"><span class="k">Seal</span><span class="v">IP68</span></div>
+          <div class="chip"><span class="k">Drop</span><span class="v">4 ft</span></div>
+          <div class="chip"><span class="k">Boot</span><span class="v">5.1</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">03</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l7 3v6c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V5z"/><path d="M8.5 12l2.5 2.5 4.5-4.5"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>Verizon certified. <span class="blue">Hot-swap.</span></h3>
+        <p>The ET401 is <strong>Verizon certified</strong>, so activation is a formality — and the <strong>hot-swap battery</strong> means the tablet never leaves the cab to stay alive.</p>
+        <div class="beat-chips">
+          <div class="chip"><span class="k">Network</span><span class="v">Verizon cert.</span></div>
+          <div class="chip"><span class="k">Battery</span><span class="v">Hot-swap</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">04</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19a9 9 0 1 1 16 0"/><path d="M12 15l4.5-5.5"/><circle cx="12" cy="15" r="1.4"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>Peak Bobo: <span class="blue">~90% in late July</span></h3>
+        <p>Bobo at Peak already ran at <strong>~90% in late July</strong>. The motion is proven, the window is open, and the ET401 is the natural next line on it.</p>
+        <div class="beat-chips">
+          <div class="chip hot"><span class="k">Bobo at Peak</span><span class="v">~90%</span></div>
+          <div class="chip"><span class="k">When</span><span class="v">Late July</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">05</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l8 3.5v5.5c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5.5z"/><path d="M12 7v10"/><path d="M8 9.5l8 5" opacity="0.5"/><path d="M16 9.5l-8 5" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>The commercial fight is <span class="blue">the opening</span></h3>
+        <p><strong>Samsung, Google, and Apple</strong> will all pitch consumer glass for the cab. The ET401 holds the <strong>rugged FedEx/Zebra lane</strong> — sealed, drop-rated, certified, and built for the job instead of the coffee shop.</p>
+        <div class="beat-chips">
+          <div class="chip"><span class="k">Versus</span><span class="v">Samsung · Google · Apple</span></div>
+          <div class="chip hot"><span class="k">Lane</span><span class="v">Rugged FedEx/Zebra</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ASK ============ -->
+<section class="ask">
+  <div class="wrap">
+    <span class="eyebrow reveal">The ask</span>
+    <h2 class="reveal reveal-d1">Linehaul <span class="blue">won’t wait.</span></h2>
+    <p class="ask-line reveal reveal-d2">Ask Peak for <b>Bobo on the ET401</b> before the <span class="blue">August Motive cutover</span>. The ELD is decided. The tablet isn’t. That’s the whole play.</p>
+    <a class="ask-cta reveal reveal-d3" href="#top" onclick="return false;">
+      Bobo on the ET401
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Peak <span class="blue">×</span> Zebra — Bobo leave-behind</span>
+    <span>ET401 · Motive BYOD · October</span>
+    <span>Page 02 / 02 — see also: TC78</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  const fine = window.matchMedia("(pointer: fine)").matches;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (fine && !reduced) {
+    const stage = document.querySelector(".hero-stage");
+    const img = document.querySelector(".hero-img");
+    const hero = document.querySelector(".hero");
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      img.style.translate = `${x * 14}px ${y * 10}px`;
+      stage.style.setProperty("--px", x);
+    });
+    hero.addEventListener("mouseleave", () => { img.style.translate = "0 0"; });
+  }
+</script>
+</body>
+</html>
