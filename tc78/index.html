@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TC78 × Bobo — The TC78 that pays for more of itself</title>
+<meta name="description" content="Peak × Zebra leave-behind: the TC78 with Bobo and a $900 Verizon credit on a new Verizon contract. Ready for October." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #04060b;
+    --ink-2: #070b14;
+    --ink-3: #0b1120;
+    --paper: #f2f5ff;
+    --paper-dim: rgba(242, 245, 255, 0.62);
+    --paper-faint: rgba(242, 245, 255, 0.38);
+    --blue: #1f69ff;
+    --blue-soft: rgba(31, 105, 255, 0.14);
+    --blue-glow: rgba(31, 105, 255, 0.45);
+    --line: rgba(242, 245, 255, 0.14);
+    --line-strong: rgba(242, 245, 255, 0.28);
+    --display: "Anton", "Arial Narrow", sans-serif;
+    --body: "Inter", -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--blue); color: var(--paper); }
+
+  /* ---- cinematic grain ---- */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---- poster registration marks ---- */
+  .reg {
+    position: fixed;
+    z-index: 55;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .reg::before, .reg::after {
+    content: "";
+    position: absolute;
+    background: var(--paper-faint);
+  }
+  .reg::before { left: 50%; top: 0; width: 1px; height: 100%; }
+  .reg::after { top: 50%; left: 0; height: 1px; width: 100%; }
+  .reg.tl { top: 14px; left: 14px; }
+  .reg.tr { top: 14px; right: 14px; }
+  .reg.bl { bottom: 14px; left: 14px; }
+  .reg.br { bottom: 14px; right: 14px; }
+  @media (max-width: 720px) { .reg { display: none; } }
+
+  /* ---- top bar ---- */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px clamp(20px, 4vw, 56px);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    background: linear-gradient(to bottom, rgba(4, 6, 11, 0.92), rgba(4, 6, 11, 0));
+  }
+  .topbar .brand { display: flex; align-items: center; gap: 12px; color: var(--paper); font-weight: 700; }
+  .topbar .brand .x { color: var(--blue); }
+  .topbar .tag {
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 5px 12px;
+    color: var(--paper);
+    white-space: nowrap;
+  }
+  .topbar .meta { display: flex; align-items: center; gap: 18px; }
+  @media (max-width: 720px) { .topbar .meta .hide-m { display: none; } }
+
+  /* ---- shared layout ---- */
+  .wrap {
+    width: min(1240px, 100% - clamp(40px, 8vw, 112px));
+    margin-inline: auto;
+  }
+
+  section { position: relative; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: var(--blue);
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    min-height: 100svh;
+    display: grid;
+    align-items: center;
+    padding: clamp(120px, 16vh, 180px) 0 clamp(64px, 9vh, 120px);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .watermark {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    font-family: var(--display);
+    font-size: clamp(180px, 34vw, 520px);
+    line-height: 0.8;
+    letter-spacing: 0.02em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(242, 245, 255, 0.07);
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(24px, 4vw, 64px);
+    align-items: center;
+  }
+
+  .hero-copy h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(52px, 8.4vw, 128px);
+    line-height: 0.94;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    margin: 26px 0 28px;
+  }
+  .hero-copy h1 .blue { color: var(--blue); }
+  .hero-copy h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--paper);
+  }
+
+  .lede {
+    max-width: 46ch;
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.65;
+    color: var(--paper-dim);
+    font-weight: 500;
+  }
+  .lede strong { color: var(--paper); font-weight: 700; }
+  .lede .blue { color: var(--blue); font-weight: 700; }
+
+  .hero-stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 420px;
+  }
+  .hero-stage::before {
+    content: "";
+    position: absolute;
+    width: 78%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blue-glow) 0%, rgba(31, 105, 255, 0.12) 42%, transparent 70%);
+    filter: blur(28px);
+    z-index: 0;
+  }
+  .hero-stage .ring {
+    position: absolute;
+    width: 92%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px dashed rgba(242, 245, 255, 0.16);
+    animation: spin 60s linear infinite;
+  }
+  .hero-stage .ring::before {
+    content: "";
+    position: absolute;
+    top: -4px; left: 50%;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 14px var(--blue);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hero-img {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 460px);
+    mix-blend-mode: screen;
+    filter: saturate(1.05) contrast(1.04);
+    animation: float 7s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-1.2deg); }
+    50% { transform: translateY(-18px) rotate(1deg); }
+  }
+
+  .hero-badge {
+    position: absolute;
+    z-index: 2;
+    bottom: 6%;
+    right: 2%;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: rgba(4, 6, 11, 0.72);
+    border: 1px solid var(--line-strong);
+    backdrop-filter: blur(6px);
+    padding: 10px 14px;
+    border-radius: 6px;
+    transform: rotate(3deg);
+  }
+  .hero-badge b { color: var(--blue); }
+
+  /* ---- spec chips: designed objects ---- */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+  }
+  .chip {
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(180deg, rgba(242, 245, 255, 0.05), rgba(242, 245, 255, 0.01));
+    border-radius: 8px;
+    padding: 12px 16px 11px;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .chip:hover {
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(31, 105, 255, 0.22);
+  }
+  .chip::before, .chip::after {
+    content: "";
+    position: absolute;
+    width: 6px; height: 6px;
+    border-color: var(--blue);
+    border-style: solid;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .chip::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+  .chip::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+  .chip:hover::before, .chip:hover::after { opacity: 1; }
+  .chip .k {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper-faint);
+  }
+  .chip .v {
+    font-family: var(--display);
+    font-size: 19px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .chip.hot { border-color: var(--blue); background: var(--blue-soft); }
+  .chip.hot .v { color: var(--blue); }
+
+  /* ---- ticker ---- */
+  .ticker {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    padding: 14px 0;
+    background: var(--ink-2);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: ticker 30s linear infinite;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    white-space: nowrap;
+  }
+  .ticker-track span { display: inline-flex; align-items: center; gap: 48px; }
+  .ticker-track .dot { color: var(--blue); }
+  @keyframes ticker { to { transform: translateX(-50%); } }
+
+  /* ---- credit object ---- */
+  .credit {
+    padding: clamp(90px, 13vh, 160px) 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 78% 40%, rgba(31, 105, 255, 0.1), transparent 65%),
+      var(--ink);
+  }
+  .credit .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: clamp(36px, 6vw, 96px);
+    align-items: center;
+  }
+
+  .credit-object {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 520px);
+    transform: rotate(-2.5deg);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .credit-object:hover { transform: rotate(-0.5deg) scale(1.015); }
+  .credit-plate {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    background:
+      radial-gradient(ellipse 90% 70% at 20% 0%, rgba(31, 105, 255, 0.22), transparent 55%),
+      linear-gradient(160deg, #0a1020 0%, #05080f 100%);
+    box-shadow:
+      0 40px 90px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(31, 105, 255, 0.12),
+      0 0 80px rgba(31, 105, 255, 0.14);
+    padding: clamp(26px, 4vw, 42px);
+    overflow: hidden;
+  }
+  .credit-plate::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px dashed rgba(242, 245, 255, 0.22);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .credit-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    margin-bottom: 18px;
+  }
+  .credit-top .pill {
+    color: var(--ink);
+    background: var(--blue);
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 5px 11px;
+    letter-spacing: 0.14em;
+  }
+  .credit-amount {
+    font-family: var(--display);
+    font-size: clamp(96px, 15vw, 168px);
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+    color: var(--paper);
+    text-shadow: 0 0 60px rgba(31, 105, 255, 0.5);
+  }
+  .credit-amount sup {
+    font-size: 0.32em;
+    vertical-align: super;
+    color: var(--blue);
+    -webkit-text-stroke: 0;
+  }
+  .credit-sub {
+    margin-top: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+  }
+  .credit-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .credit-flow .node {
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: var(--paper);
+    background: rgba(4, 6, 11, 0.5);
+  }
+  .credit-flow .arrow { color: var(--blue); font-weight: 700; }
+  .credit-barcode {
+    margin-top: 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .credit-barcode svg { height: 34px; width: 46%; opacity: 0.85; }
+  .credit-barcode .num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--paper-faint);
+  }
+  .credit-shadow {
+    position: absolute;
+    inset: auto 8% -26px 8%;
+    height: 40px;
+    background: radial-gradient(ellipse, rgba(31, 105, 255, 0.35), transparent 70%);
+    filter: blur(18px);
+    z-index: -1;
+  }
+
+  .credit-copy h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(38px, 4.6vw, 68px);
+    line-height: 0.98;
+    text-transform: uppercase;
+    margin: 22px 0 22px;
+  }
+  .credit-copy h2 .blue { color: var(--blue); }
+  .credit-copy p {
+    color: var(--paper-dim);
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.7;
+    max-width: 52ch;
+    font-weight: 500;
+  }
+  .credit-copy p + p { margin-top: 14px; }
+  .credit-copy p strong { color: var(--paper); }
+  .credit-copy p .blue { color: var(--blue); font-weight: 700; }
+
+  /* ---- beats ---- */
+  .beats {
+    padding: clamp(90px, 13vh, 170px) 0 clamp(70px, 10vh, 130px);
+    background: var(--ink-2);
+    border-top: 1px solid var(--line);
+  }
+  .beats-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(44px, 7vh, 84px);
+  }
+  .beats-head h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(44px, 7vw, 104px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-top: 22px;
+  }
+  .beats-head h2 .outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--paper);
+  }
+  .beats-head .count {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    padding-bottom: 10px;
+  }
+  .beats-head .count b { color: var(--blue); font-weight: 700; }
+
+  .beat {
+    display: grid;
+    grid-template-columns: 110px 88px minmax(0, 1fr);
+    gap: clamp(18px, 3vw, 44px);
+    align-items: start;
+    padding: clamp(34px, 5vh, 54px) 0;
+    border-top: 1px solid var(--line);
+  }
+  .beat:last-child { border-bottom: 1px solid var(--line); }
+  .beat-num {
+    font-family: var(--mono);
+    font-size: clamp(15px, 1.6vw, 19px);
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 0.08em;
+    padding-top: 8px;
+  }
+  .beat-icon {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line-strong);
+    border-radius: 14px;
+    background: linear-gradient(160deg, rgba(31, 105, 255, 0.14), rgba(31, 105, 255, 0.02));
+    color: var(--paper);
+    transition: transform 0.3s, box-shadow 0.3s, color 0.3s;
+  }
+  .beat:hover .beat-icon {
+    transform: translateY(-4px) rotate(-3deg);
+    box-shadow: 0 14px 40px rgba(31, 105, 255, 0.3);
+    color: var(--blue);
+  }
+  .beat-icon svg { width: 36px; height: 36px; }
+  .beat-body h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 46px);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin-bottom: 14px;
+  }
+  .beat-body h3 .blue { color: var(--blue); }
+  .beat-body p {
+    color: var(--paper-dim);
+    font-size: clamp(15px, 1.35vw, 17px);
+    line-height: 1.7;
+    max-width: 62ch;
+    font-weight: 500;
+  }
+  .beat-body p strong { color: var(--paper); }
+  .beat-body p .blue { color: var(--blue); font-weight: 700; }
+  .beat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .beat-chips .chip { padding: 9px 13px 8px; }
+  .beat-chips .chip .v { font-size: 15px; }
+
+  /* ---- ask ---- */
+  .ask {
+    padding: clamp(110px, 17vh, 210px) 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 110%, rgba(31, 105, 255, 0.22), transparent 65%),
+      var(--ink);
+    border-top: 1px solid var(--line);
+    text-align: center;
+    overflow: hidden;
+  }
+  .ask .eyebrow { justify-content: center; }
+  .ask .eyebrow::after {
+    content: "";
+    width: 34px; height: 2px;
+    background: var(--blue);
+  }
+  .ask h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(58px, 11vw, 170px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin: 26px 0 30px;
+  }
+  .ask h2 .blue { color: var(--blue); text-shadow: 0 0 80px rgba(31, 105, 255, 0.55); }
+  .ask .ask-line {
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.4vw, 15px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    max-width: 62ch;
+    margin: 0 auto;
+    line-height: 2;
+  }
+  .ask .ask-line b { color: var(--paper); }
+  .ask .ask-line .blue { color: var(--blue); font-weight: 700; }
+  .ask-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 44px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--blue);
+    border-radius: 999px;
+    padding: 18px 34px;
+    box-shadow: 0 0 0 1px rgba(31, 105, 255, 0.4), 0 20px 60px rgba(31, 105, 255, 0.35);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .ask-cta:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(31, 105, 255, 0.6), 0 28px 80px rgba(31, 105, 255, 0.5); }
+  .ask-cta svg { width: 16px; height: 16px; }
+
+  /* ---- footer ---- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 34px 0 44px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--paper-faint);
+  }
+  footer .wrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  footer .blue { color: var(--blue); }
+
+  /* ---- reveal ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+  .reveal-d3 { transition-delay: 0.24s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ---- responsive ---- */
+  @media (max-width: 960px) {
+    .hero .wrap { grid-template-columns: 1fr; gap: 12px; }
+    .hero-stage { min-height: 0; order: -1; margin-bottom: -10px; }
+    .hero-img { width: min(74%, 380px); }
+    .hero-badge { bottom: 0; right: 6%; }
+    .credit .wrap { grid-template-columns: 1fr; }
+    .credit-object { width: min(100%, 460px); }
+    .beat { grid-template-columns: 64px minmax(0, 1fr); }
+    .beat-num { grid-column: 1; grid-row: 1; }
+    .beat-icon { grid-column: 1; grid-row: 2; width: 56px; height: 56px; border-radius: 12px; }
+    .beat-icon svg { width: 28px; height: 28px; }
+    .beat-body { grid-column: 2; grid-row: 1 / span 2; }
+  }
+  @media (max-width: 560px) {
+    .hero-copy h1 { font-size: clamp(46px, 14.5vw, 72px); }
+    .credit-amount { font-size: clamp(88px, 26vw, 128px); }
+    .beat { grid-template-columns: 1fr; }
+    .beat-num { grid-column: 1; grid-row: auto; padding-top: 0; }
+    .beat-icon { grid-column: 1; grid-row: auto; }
+    .beat-body { grid-column: 1; grid-row: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="reg tl"></div><div class="reg tr"></div><div class="reg bl"></div><div class="reg br"></div>
+
+<header class="topbar">
+  <div class="brand">PEAK <span class="x">×</span> ZEBRA <span class="x">/</span> BOBO</div>
+  <div class="meta">
+    <span class="hide-m">Leave-behind · October</span>
+    <span class="tag">TC78</span>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="watermark" aria-hidden="true">TC78</div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow reveal">Peak × Zebra · Bobo leave-behind</span>
+      <h1 class="reveal reveal-d1">The TC78 that <span class="blue">pays for more</span> of <span class="outline">itself</span></h1>
+      <p class="lede reveal reveal-d2">FedEx needs a tougher handheld. The TC78 is the tougher handheld — and with <strong>Bobo</strong> plus a <span class="blue">$900 Verizon credit on a new Verizon contract</span>, each unit starts paying for more of itself from day one.</p>
+      <div class="chips reveal reveal-d3">
+        <div class="chip"><span class="k">Display</span><span class="v">6&Prime; FHD+</span></div>
+        <div class="chip"><span class="k">Brightness</span><span class="v">600 nits</span></div>
+        <div class="chip"><span class="k">WAN</span><span class="v">5G</span></div>
+        <div class="chip"><span class="k">LAN</span><span class="v">Wi-Fi 6E</span></div>
+        <div class="chip"><span class="k">Battery</span><span class="v">Warm-swap</span></div>
+        <div class="chip hot"><span class="k">Credit</span><span class="v">$900</span></div>
+      </div>
+    </div>
+    <div class="hero-stage reveal reveal-d2">
+      <div class="ring" aria-hidden="true"></div>
+      <img class="hero-img" src="assets/hero.png" alt="Zebra TC78 rugged handheld floating with blue rim light" />
+      <div class="hero-badge">Unit shown: <b>TC78</b> · Bobo-ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Peak × Zebra <i class="dot">●</i> Bobo <i class="dot">●</i> TC78 <i class="dot">●</i> $900 Verizon credit <i class="dot">●</i> New Verizon contract <i class="dot">●</i> Ready for October <i class="dot">●</i></span>
+    <span>Peak × Zebra <i class="dot">●</i> Bobo <i class="dot">●</i> TC78 <i class="dot">●</i> $900 Verizon credit <i class="dot">●</i> New Verizon contract <i class="dot">●</i> Ready for October <i class="dot">●</i></span>
+  </div>
+</div>
+
+<!-- ============ $900 CREDIT OBJECT ============ -->
+<section class="credit">
+  <div class="wrap">
+    <div class="credit-object reveal">
+      <div class="credit-plate">
+        <div class="credit-top">
+          <span>Verizon credit</span>
+          <span class="pill">Per new Verizon contract</span>
+        </div>
+        <div class="credit-amount"><sup>$</sup>900</div>
+        <div class="credit-sub">Off. Every TC78. On the hardware purchase.</div>
+        <div class="credit-flow">
+          <span class="node">New Verizon contract</span>
+          <span class="arrow">→</span>
+          <span class="node">Zebra hardware</span>
+        </div>
+        <div class="credit-barcode">
+          <svg viewBox="0 0 120 34" fill="currentColor" aria-hidden="true">
+            <rect x="0" y="0" width="3" height="34"/><rect x="5" y="0" width="1.5" height="34"/><rect x="9" y="0" width="4" height="34"/><rect x="15" y="0" width="1.5" height="34"/><rect x="19" y="0" width="2.5" height="34"/><rect x="24" y="0" width="5" height="34"/><rect x="31" y="0" width="1.5" height="34"/><rect x="35" y="0" width="3" height="34"/><rect x="41" y="0" width="1.5" height="34"/><rect x="45" y="0" width="4.5" height="34"/><rect x="52" y="0" width="2" height="34"/><rect x="57" y="0" width="3" height="34"/><rect x="63" y="0" width="1.5" height="34"/><rect x="67" y="0" width="5" height="34"/><rect x="75" y="0" width="2" height="34"/><rect x="80" y="0" width="1.5" height="34"/><rect x="84" y="0" width="3.5" height="34"/><rect x="90" y="0" width="1.5" height="34"/><rect x="94" y="0" width="4" height="34"/><rect x="101" y="0" width="2" height="34"/><rect x="106" y="0" width="1.5" height="34"/><rect x="110" y="0" width="3" height="34"/><rect x="116" y="0" width="4" height="34"/>
+          </svg>
+          <span class="num">BOBO·TC78·900</span>
+        </div>
+      </div>
+      <div class="credit-shadow" aria-hidden="true"></div>
+    </div>
+    <div class="credit-copy">
+      <span class="eyebrow reveal">The headliner</span>
+      <h2 class="reveal reveal-d1">$900 off the top. <span class="blue">Stacked</span> across the slate.</h2>
+      <p class="reveal reveal-d2">The <strong>$900 Verizon credit</strong> lands on a <strong>new Verizon contract</strong> and applies straight to the <span class="blue">Zebra hardware purchase</span> — not as optics, as a line item.</p>
+      <p class="reveal reveal-d3">And it isn't a one-device trick: the credit is <strong>stackable across the Zebra slate</strong>, so the TC78 order sets up the next one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEATS ============ -->
+<section class="beats">
+  <div class="wrap">
+    <div class="beats-head">
+      <div>
+        <span class="eyebrow reveal">Why this lands</span>
+        <h2 class="reveal reveal-d1">Five beats.<br /><span class="outline">One handheld.</span></h2>
+      </div>
+      <div class="count reveal reveal-d2"><b>01–05</b> / TC78 × Bobo</div>
+    </div>
+
+    <article class="beat reveal">
+      <div class="beat-num">01</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 8h13v9H1z"/><path d="M14 11h4l3 3v3h-7z"/><circle cx="5.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/><path d="M7.3 17.5h8.4"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>Built for the truck <span class="blue">and</span> the dock</h3>
+        <p>A <strong>6&Prime; FHD+ display at 600 nits</strong> stays readable in the yard and the trailer. <strong>5G and Wi-Fi 6E</strong> keep the route talking, and the <strong>warm-swap battery runs ~15 hours</strong> — power outlasts the shift, not the other way around.</p>
+        <div class="beat-chips">
+          <div class="chip"><span class="k">Screen</span><span class="v">6&Prime; FHD+</span></div>
+          <div class="chip"><span class="k">Nits</span><span class="v">600</span></div>
+          <div class="chip"><span class="k">Radio</span><span class="v">5G · Wi-Fi 6E</span></div>
+          <div class="chip"><span class="k">Shift</span><span class="v">~15 hrs</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">02</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 17l6-6-6-6"/><path d="M12 17l6-6-6-6"/><path d="M3 21h18"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>The TC77 replacement that <span class="blue">isn't a leap</span></h3>
+        <p>The TC78 <strong>replaces the TC77 inside the same family</strong> — same muscle memory, same workflows — with a <strong>stronger radio</strong> and an <strong>RFID sled</strong> when the operation is ready to reach for it.</p>
+        <div class="beat-chips">
+          <div class="chip"><span class="k">Succession</span><span class="v">TC77 → TC78</span></div>
+          <div class="chip"><span class="k">Radio</span><span class="v">Stronger</span></div>
+          <div class="chip"><span class="k">Option</span><span class="v">RFID sled</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">03</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/><path d="M8.5 14.5l2.5 2.5 4.5-4.5"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>Bobo is <span class="blue">confirmed</span> at Peak</h3>
+        <p><strong>Peak has confirmed Bobo.</strong> The term sheet is open with <strong>Phillip &amp; Heather</strong> — this is a live document, not a maybe.</p>
+        <div class="beat-chips">
+          <div class="chip hot"><span class="k">Status</span><span class="v">Confirmed</span></div>
+          <div class="chip"><span class="k">Term sheet</span><span class="v">Open</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">04</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5" opacity="0.45"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>The credit <span class="blue">stacks</span></h3>
+        <p>The <strong>$900 Verizon credit</strong> rides the <strong>new Verizon contract</strong> and lands directly on the <strong>hardware purchase</strong> — then <strong>stacks across the Zebra slate</strong>. One contract move, compounding hardware math.</p>
+        <div class="beat-chips">
+          <div class="chip hot"><span class="k">Per unit</span><span class="v">$900</span></div>
+          <div class="chip"><span class="k">Applies to</span><span class="v">Hardware</span></div>
+          <div class="chip"><span class="k">Slate-wide</span><span class="v">Stackable</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="beat reveal">
+      <div class="beat-num">05</div>
+      <div class="beat-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7V4h3"/><path d="M17 4h3v3"/><path d="M21 17v3h-3"/><path d="M7 20H4v-3"/><path d="M7 9v6"/><path d="M10.5 9v6"/><path d="M13.5 9v6"/><path d="M17 9v6"/>
+        </svg>
+      </div>
+      <div class="beat-body">
+        <h3>One device. <span class="blue">Whole route.</span></h3>
+        <p><strong>Scan, proof of delivery, route</strong> — the TC78 carries the full stop-to-stop workflow in one hand. No second device, no dead spots in the chain of custody.</p>
+        <div class="beat-chips">
+          <div class="chip"><span class="k">01</span><span class="v">Scan</span></div>
+          <div class="chip"><span class="k">02</span><span class="v">POD</span></div>
+          <div class="chip"><span class="k">03</span><span class="v">Route</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ASK ============ -->
+<section class="ask">
+  <div class="wrap">
+    <span class="eyebrow reveal">The ask</span>
+    <h2 class="reveal reveal-d1">Ready for <span class="blue">October.</span></h2>
+    <p class="ask-line reveal reveal-d2">Ask Peak for <b>Bobo pricing on the TC78</b> with the <span class="blue">$900 Verizon credit applied</span>. The term sheet is open. The credit is real. The handheld is tougher.</p>
+    <a class="ask-cta reveal reveal-d3" href="#top" onclick="return false;">
+      Bobo pricing on the TC78
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Peak <span class="blue">×</span> Zebra — Bobo leave-behind</span>
+    <span>TC78 · $900 Verizon credit · October</span>
+    <span>Page 01 / 02 — see also: ET401</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  const fine = window.matchMedia("(pointer: fine)").matches;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (fine && !reduced) {
+    const stage = document.querySelector(".hero-stage");
+    const img = document.querySelector(".hero-img");
+    const hero = document.querySelector(".hero");
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      img.style.translate = `${x * 14}px ${y * 10}px`;
+      stage.style.setProperty("--px", x);
+    });
+    hero.addEventListener("mouseleave", () => { img.style.translate = "0 0"; });
+  }
+</script>
+</body>
+</html>
