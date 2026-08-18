@@ -13,11 +13,12 @@
     --white:#FFFFFF;
     --gray-500:#757575;
     --gray-50:#F2F2F2;
-    --orange:#FF4D00;
-    --blue:#1F69FF;   /* the one button on the page */
-    --headline:"Arial Narrow Bold","Arial Narrow",Arial,sans-serif;
-    --body:Arial,"Trebuchet MS",sans-serif;
-    --mono:"Courier New",ui-monospace,monospace;
+    --orange:#FF4D00;  /* official vibrant accent — the $900 punch */
+    --blue:#1F69FF;    /* Anthony override: customer-facing accent, the one button */
+    /* design.md type: Zebra faces named first, official fallbacks only */
+    --headline:"Zebra Sans Condensed Extrabold","Zebra Sans Condensed","Arial Narrow Bold","Arial Narrow",Arial,sans-serif;
+    --body:"Zebra Sans",Arial,"Trebuchet MS",sans-serif;
+    --mono:"Zebra Mono","Courier New",ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -27,30 +28,54 @@
     font-family:var(--body);
     font-size:16px;
     line-height:1.5;
+    letter-spacing:0; /* tracking 0 */
   }
   .page{
     background:var(--field);
     width:min(100%,8.5in);
     min-height:11in;
     margin:0 auto 28px;
-    padding:clamp(20px,5vw,0.6in);
+    padding:clamp(22px,5vw,0.6in);
     border:1px solid #000;
     display:flex;
     flex-direction:column;
   }
 
-  /* Peak + Zebra lockup. Peak mark carries dark text, so it rides in a
-     white tile; the Zebra wordmark is the approved white reversal. */
-  .lockup{display:flex;align-items:center;gap:20px;padding:6px 0 18px}
-  .lockup .peak-tile{background:var(--white);padding:10px 14px;border-radius:2px;line-height:0}
-  .lockup .peak{height:20px;width:auto;display:block}
-  .lockup .rule{width:1px;align-self:stretch;background:var(--line)}
-  .lockup .zebra{height:30px;width:auto;display:block}
+  /* Co-branded lockup, design.md math:
+     x = half the Zebra Head width (14.2% of wordmark width) each side of divider;
+     divider extends y (ear width, 16% of wordmark height) above/below;
+     divider width = 0.5z (half face stripe, 4.6% of wordmark height). */
+  .lockup{
+    --L:34px;
+    --W:calc(var(--L) * 37.501 / 12.287);
+    --x:calc(var(--W) * 0.142);
+    --y:calc(var(--L) * 0.16);
+    --halfz:max(1px, calc(var(--L) * 0.046));
+    display:flex;
+    align-items:center;
+    padding:calc(var(--y) + 10px) 0 calc(var(--y) + 16px);
+  }
+  .lockup .peak-side{display:flex;align-items:center;gap:10px;margin-right:var(--x)}
+  .lockup .peak-mark{height:calc(var(--L) * 0.82);width:auto;display:block}
+  .lockup .peak-name{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:calc(var(--L) * 0.52);
+    color:var(--white);
+    white-space:nowrap;
+  }
+  .lockup .divider{
+    width:var(--halfz);
+    align-self:stretch;
+    margin:calc(-1 * var(--y)) 0;
+    background:#4a4a4a;
+  }
+  .lockup .zebra{height:var(--L);width:auto;display:block;margin-left:var(--x)}
 
   .eyebrow{
     font-family:var(--mono);
     font-size:12px;
-    letter-spacing:.18em;
+    letter-spacing:0;
     text-transform:uppercase;
     color:var(--orange);
   }
@@ -58,16 +83,16 @@
     font-family:var(--headline);
     font-weight:800;
     line-height:.98;
-    letter-spacing:.01em;
+    letter-spacing:0;
   }
-  h1{font-size:clamp(64px,17vw,132px);margin:14px 0 0}
+  h1{font-size:clamp(64px,17vw,124px);margin:16px 0 0}
   .tagline{
     font-family:var(--headline);
     font-weight:800;
-    font-size:clamp(26px,6.5vw,44px);
-    line-height:1;
+    font-size:clamp(26px,6.5vw,42px);
+    line-height:1.05;
     color:var(--orange);
-    margin-top:6px;
+    margin-top:8px;
   }
 
   /* Two renders of the same TC78, locked to one physical size. */
@@ -75,27 +100,27 @@
     display:flex;
     justify-content:center;
     align-items:flex-end;
-    gap:clamp(24px,8vw,72px);
-    margin:clamp(18px,4vw,34px) 0 4px;
+    gap:clamp(28px,9vw,84px);
+    margin:clamp(24px,5vw,44px) 0 6px;
   }
   .hero figure{line-height:0}
-  .hero img{height:clamp(190px,42vw,320px);width:auto;display:block}
+  .hero img{height:clamp(200px,44vw,330px);width:auto;display:block}
   .hero figcaption{
     font-family:var(--mono);
-    font-size:11px;
-    letter-spacing:.14em;
+    font-size:12px;
+    letter-spacing:0;
     text-transform:uppercase;
     color:var(--gray-500);
     line-height:1.4;
-    margin-top:10px;
+    margin-top:12px;
     text-align:center;
   }
 
   .credit{
     background:var(--orange);
     color:var(--black);
-    padding:clamp(16px,4vw,26px) clamp(18px,4.5vw,30px);
-    margin-top:clamp(18px,4vw,30px);
+    padding:clamp(18px,4vw,26px) clamp(18px,4.5vw,30px);
+    margin-top:clamp(22px,4.5vw,34px);
     display:flex;
     flex-wrap:wrap;
     align-items:center;
@@ -104,68 +129,66 @@
   .credit .amount{
     font-family:var(--headline);
     font-weight:800;
-    font-size:clamp(56px,13vw,92px);
+    font-size:clamp(56px,13vw,88px);
     line-height:.9;
   }
   .credit .what{
     font-family:var(--headline);
     font-weight:800;
-    font-size:clamp(20px,4.6vw,28px);
+    font-size:clamp(20px,4.6vw,27px);
     line-height:1.05;
   }
   .credit .note{
     flex-basis:100%;
-    font-size:13.5px;
+    font-size:14px;
     line-height:1.45;
     font-weight:700;
+    max-width:68ch;
   }
 
   .bobo{
     border:1px solid var(--orange);
-    margin-top:14px;
-    padding:14px clamp(18px,4.5vw,30px) 16px;
+    margin-top:16px;
+    padding:16px clamp(18px,4.5vw,30px) 18px;
   }
   .bobo .label{
     font-family:var(--mono);
     font-size:12px;
-    letter-spacing:.18em;
+    letter-spacing:0;
     text-transform:uppercase;
     color:var(--orange);
     margin-bottom:6px;
   }
   .bobo p{font-size:14px;line-height:1.5;max-width:68ch}
 
+  /* Quiet spec bar — breathes, hairlines only */
   .specs{
     display:grid;
     grid-template-columns:repeat(7,1fr);
     border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    margin-top:clamp(18px,4vw,28px);
+    margin-top:clamp(22px,4.5vw,32px);
+    padding-top:14px;
   }
-  .specs .spec{
-    padding:12px 10px;
-    border-left:1px solid var(--line);
-  }
-  .specs .spec:first-child{border-left:none}
+  .specs .spec{padding:2px 10px 0 0}
   .specs .v{
     font-family:var(--headline);
     font-weight:800;
-    font-size:clamp(15px,2.6vw,19px);
+    font-size:clamp(15px,2.6vw,18px);
     line-height:1.05;
     display:block;
   }
   .specs .k{
     font-family:var(--mono);
-    font-size:10px;
-    letter-spacing:.1em;
+    font-size:12px;
+    letter-spacing:0;
     text-transform:uppercase;
     color:var(--gray-500);
     display:block;
-    margin-top:5px;
-    line-height:1.4;
+    margin-top:4px;
+    line-height:1.35;
   }
 
-  .cta-row{margin-top:clamp(18px,4vw,26px);display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .cta-row{margin-top:clamp(22px,4.5vw,30px);display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .btn{
     background:var(--blue);
     color:var(--white);
@@ -173,39 +196,40 @@
     font-family:var(--headline);
     font-weight:700;
     font-size:16px;
-    padding:13px 24px;
-    border-radius:2px;
+    padding:13px 26px;
+    border-radius:999px; /* pill, Anthony override */
     display:inline-block;
   }
   .cta-sub{font-size:13px;color:var(--gray-500)}
 
   .page footer{
     margin-top:auto;
-    padding-top:22px;
+    padding-top:24px;
     border-top:1px solid var(--line);
-    font-size:11.5px;
+    font-size:12px;
     line-height:1.5;
     color:var(--gray-500);
   }
 
   /* Back page — the board */
-  h2{font-size:clamp(30px,7vw,44px);margin:12px 0 4px}
+  h2{font-size:clamp(30px,7vw,42px);margin:14px 0 4px}
   .board{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
-    margin-top:18px;
+    margin-top:20px;
   }
   .cell{
     background:var(--panel);
     border-left:3px solid var(--orange);
-    padding:14px 16px 13px;
+    padding:15px 16px 14px;
   }
   .cell .num{
     font-family:var(--mono);
     font-size:12px;
-    letter-spacing:.16em;
+    letter-spacing:0;
     color:var(--orange);
+    text-transform:uppercase;
   }
   .cell h3{
     font-family:var(--headline);
@@ -217,19 +241,14 @@
   .cell p{font-size:13.5px;line-height:1.5;color:var(--gray-50);max-width:65ch}
 
   @media (max-width:640px){
-    .specs{grid-template-columns:repeat(4,1fr)}
-    .specs .spec:nth-child(5){border-left:none}
-    .specs .spec{border-top:1px solid var(--line)}
-    .specs .spec:nth-child(-n+4){border-top:none}
+    .specs{grid-template-columns:repeat(4,1fr);row-gap:14px}
   }
   @media (max-width:560px){
     .board{grid-template-columns:1fr}
   }
   @media (max-width:420px){
     .specs{grid-template-columns:repeat(2,1fr)}
-    .specs .spec{border-top:1px solid var(--line)!important}
-    .specs .spec:nth-child(-n+2){border-top:none!important}
-    .specs .spec:nth-child(odd){border-left:none}
+    .lockup .peak-name{display:none} /* triangle carries the mark on narrow screens */
   }
 
   @page{size:letter;margin:0}
@@ -241,13 +260,16 @@
       width:8.5in;
       height:11in;
       min-height:0;
-      padding:0.5in 0.55in;
+      padding:0.55in;
       page-break-after:always;
       -webkit-print-color-adjust:exact;
       print-color-adjust:exact;
     }
     .page:last-child{page-break-after:auto}
-    .hero img{height:300px}
+    .hero img{height:310px}
+    /* design.md floor: body text never under 10pt in print */
+    .page footer,.hero figcaption,.specs .k,.cell .num,.bobo .label,.eyebrow{font-size:10pt}
+    .cell p,.bobo p,.credit .note{font-size:10.5pt}
   }
 </style>
 </head>
@@ -256,8 +278,11 @@
 <!-- FRONT -->
 <section class="page" aria-label="Front">
   <header class="lockup">
-    <span class="peak-tile"><img class="peak" src="assets/peak-technologies-logo.png" alt="Peak Technologies"></span>
-    <span class="rule" aria-hidden="true"></span>
+    <span class="peak-side">
+      <img class="peak-mark" src="assets/peak-mark.png" alt="Peak Technologies mark">
+      <span class="peak-name">Peak Technologies</span>
+    </span>
+    <span class="divider" aria-hidden="true"></span>
     <img class="zebra" src="assets/zebra-logo-white.svg" alt="Zebra Technologies">
   </header>
 
