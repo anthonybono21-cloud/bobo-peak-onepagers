@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zebra ET401 for service providers — Peak</title>
+<meta name="description" content="The Zebra ET401 enterprise tablet for independent service providers. Why it beats the free tablet: depot service, managed fleet, total cost." />
+<style>
+  :root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray-500: #757575;
+    --gray-50: #F2F2F2;
+    --blue: #1F69FF;
+
+    --headline: "Zebra Sans Condensed ExtraBold", "Arial Narrow Bold", "Arial Narrow", Arial, sans-serif;
+    --body: "Zebra Sans", "Zebra Sans Regular", Arial, "Trebuchet MS", sans-serif;
+    --mono: "Zebra Mono", "Zebra Mono Medium", "Courier New", Courier, monospace;
+
+    --gutter: clamp(20px, 5vw, 56px);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--blue); color: var(--white); }
+
+  .page {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 var(--gutter) 0;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: clamp(28px, 5vw, 48px);
+    padding-bottom: clamp(28px, 5vw, 48px);
+  }
+  /* Clear space around the logo = height of the Z on all sides. */
+  .masthead .logo {
+    display: block;
+    width: 108px;
+    height: auto;
+    padding: 18px; /* >= Z height at this render size */
+    margin: -18px 0 0 -18px; /* keep optical alignment while preserving clear space */
+  }
+  .masthead .kicker {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    text-align: right;
+    padding-top: 6px;
+    white-space: nowrap;
+  }
+  @media (max-width: 560px) {
+    .masthead { flex-direction: column; gap: 8px; }
+    .masthead .kicker { text-align: left; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    padding-bottom: clamp(36px, 6vw, 72px);
+  }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 3px;
+    background: var(--blue);
+    flex: none;
+  }
+
+  h1 {
+    font-family: var(--headline);
+    font-weight: 800;
+    font-size: clamp(44px, 8.2vw, 84px);
+    line-height: 0.94;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin-bottom: 22px;
+  }
+
+  .lede {
+    max-width: 32em; /* 45–75 characters per line */
+    font-size: clamp(16px, 1.6vw, 18px);
+    color: var(--black);
+  }
+  .lede + .lede { margin-top: 0.9em; }
+  .lede .quiet { color: var(--gray-500); }
+
+  .hero-photo {
+    background: var(--gray-50);
+    padding: clamp(18px, 3vw, 36px);
+  }
+  .hero-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hero-photo figcaption {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    padding-top: 14px;
+  }
+
+  /* ---------- argument sections ---------- */
+  .argument { border-top: 1px solid var(--black); }
+
+  .point {
+    display: grid;
+    grid-template-columns: 64px 1fr 1.2fr;
+    gap: clamp(18px, 3.5vw, 48px);
+    padding: clamp(26px, 4.5vw, 44px) 0;
+    border-bottom: 1px solid var(--gray-50);
+  }
+  @media (max-width: 760px) {
+    .point { grid-template-columns: 44px 1fr; }
+    .point .body { grid-column: 2; }
+  }
+
+  .point .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    padding-top: 6px;
+  }
+  .point h2 {
+    font-family: var(--headline);
+    font-weight: 800;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .point .body {
+    max-width: 34em;
+    color: var(--black);
+  }
+  .point .body p + p { margin-top: 0.8em; }
+  .point .body .quiet { color: var(--gray-500); }
+  .point .body strong { font-weight: 700; }
+
+  /* ---------- spec strip ---------- */
+  .specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-50);
+    margin: clamp(30px, 5vw, 52px) 0;
+  }
+  @media (max-width: 760px) {
+    .specs { grid-template-columns: repeat(2, 1fr); }
+  }
+  .spec {
+    background: var(--white);
+    padding: 18px 18px 16px;
+  }
+  .spec .k {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 6px;
+  }
+  .spec .v {
+    font-family: var(--headline);
+    font-weight: 800;
+    font-size: 19px;
+    line-height: 1.1;
+  }
+  .spec .v .b { color: var(--blue); }
+
+  /* ---------- footer band ---------- */
+  .band {
+    background: var(--black);
+    color: var(--white);
+    padding: clamp(30px, 5vw, 52px) var(--gutter);
+  }
+  .band-inner {
+    max-width: 1060px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .band .logo {
+    width: 92px;
+    height: auto;
+    padding: 15px; /* clear space = Z height */
+    margin: -15px 0 -15px -15px;
+    flex: none;
+  }
+  .band .cta { max-width: 34em; }
+  .band .cta .line {
+    font-family: var(--headline);
+    font-weight: 800;
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.05;
+    margin-bottom: 8px;
+  }
+  .band .cta .sub {
+    color: var(--gray-500);
+    font-size: 15px;
+  }
+  .band .cta .sub .b { color: var(--blue); font-weight: 700; }
+
+  .fineprint {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 18px var(--gutter) 34px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    color: var(--gray-500);
+  }
+
+  /* ---------- motion: quiet, load-only ---------- */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  .hero-copy, .hero-photo { animation: rise 0.7s ease-out both; }
+  .hero-photo { animation-delay: 0.12s; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy, .hero-photo { animation: none; }
+  }
+
+  /* ---------- print: one letter page ---------- */
+  @page { size: letter; margin: 0.35in; }
+  @media print {
+    * {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+      animation: none !important;
+    }
+    body { font-size: 9pt; line-height: 1.4; }
+    .page { max-width: none; padding: 0; }
+    .masthead { padding-top: 0; padding-bottom: 8pt; }
+    .masthead .logo { width: 50pt; padding: 9pt; margin: -9pt 0 0 -9pt; }
+    .masthead .kicker { font-size: 7pt; }
+    .hero {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16pt;
+      padding-bottom: 9pt;
+    }
+    h1 { font-size: 27pt; margin-bottom: 7pt; }
+    .eyebrow { margin-bottom: 7pt; font-size: 7.5pt; }
+    .lede { font-size: 9pt; }
+    .hero-photo { padding: 9pt; }
+    .hero-photo img { max-height: 2.15in; object-fit: contain; margin: 0 auto; }
+    .hero-photo figcaption { padding-top: 5pt; font-size: 6.5pt; }
+    .point {
+      grid-template-columns: 26pt 0.9fr 1.25fr;
+      gap: 11pt;
+      padding: 6pt 0;
+    }
+    .point .num { font-size: 8pt; padding-top: 2pt; }
+    .point h2 { font-size: 13.5pt; }
+    .point .body { font-size: 8.4pt; line-height: 1.42; }
+    .point .body p + p { margin-top: 0.5em; }
+    .specs { margin: 6pt 0; grid-template-columns: repeat(6, 1fr); }
+    .spec { padding: 6pt 7pt 5pt; }
+    .spec .k { font-size: 6pt; margin-bottom: 2pt; }
+    .spec .v { font-size: 8.8pt; }
+    .band { padding: 9pt 12pt; }
+    .band-inner { flex-wrap: nowrap; gap: 14pt; }
+    .band .logo { width: 46pt; padding: 8pt; margin: -8pt 0 -8pt -8pt; }
+    .band .cta .line { font-size: 12.5pt; margin-bottom: 3pt; }
+    .band .cta .sub { font-size: 7.8pt; }
+    .fineprint { padding: 5pt 0 0; font-size: 6pt; line-height: 1.45; }
+    .point, .specs, .band { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <img class="logo" src="assets/zebra-logo-black.svg" alt="Zebra" width="127" height="42" />
+    <div class="kicker">For independent service providers</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Zebra ET401 enterprise tablet</p>
+      <h1>The free tablet is the expensive one.</h1>
+      <p class="lede">A consumer tablet costs nothing on day one and plenty
+      every week after. The ET401 is built for delivery work — and Peak
+      keeps it running, so one bad drop never becomes a lost day.</p>
+    </div>
+    <figure class="hero-photo">
+      <img src="assets/et401.png" alt="Zebra ET401 enterprise tablet, front and back" width="1143" height="1258" />
+      <figcaption>ET401 — 8-inch and 10-inch, Android</figcaption>
+    </figure>
+  </section>
+
+  <section class="argument">
+
+    <div class="point">
+      <div class="num">01</div>
+      <h2>Why not the free iPad or Samsung</h2>
+      <div class="body">
+        <p>Free tablets are priced for a living room, not a step van. One drop
+        onto concrete, one rainstorm at the door, one glove that won&rsquo;t
+        register — and the free tablet is a repair bill plus a missed route.</p>
+        <p class="quiet">The ET401 is drop-tested to concrete, sealed against
+        dust and water, and the touchscreen works with gloves and in the rain.</p>
+      </div>
+    </div>
+
+    <div class="point">
+      <div class="num">02</div>
+      <h2>What Peak handles for you</h2>
+      <div class="body">
+        <p>Peak stages every tablet before it reaches you — charged, updated,
+        and loaded for the job. You open the box and start the route.</p>
+        <p>Break one? Box it and send it in. <strong>Depot service</strong>
+        repairs it and sends a working one back. No repair shop, no guesswork,
+        no tablet drawer full of maybes.</p>
+      </div>
+    </div>
+
+    <div class="point">
+      <div class="num">03</div>
+      <h2>The cost that actually matters</h2>
+      <div class="body">
+        <p>Sticker price is the smallest part of what a tablet costs. Downtime,
+        replacements, and dead batteries are the real bill — and that&rsquo;s
+        where the ET401 wins.</p>
+        <p class="quiet">The battery swaps out in seconds, and Android updates
+        are committed for years. Ask your Peak contact what the ET401 lands at
+        for your operation — for most contractors, it&rsquo;s close to free.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="specs" aria-label="ET401 highlights">
+    <div class="spec"><div class="k">Sealing</div><div class="v">IP68 — dust &amp; water</div></div>
+    <div class="spec"><div class="k">Drop tested</div><div class="v">4 ft to concrete</div></div>
+    <div class="spec"><div class="k">Touchscreen</div><div class="v">Gloves &amp; rain</div></div>
+    <div class="spec"><div class="k">Battery</div><div class="v">Swaps in seconds</div></div>
+    <div class="spec"><div class="k">Android updates</div><div class="v">15 → 18</div></div>
+    <div class="spec"><div class="k">Sizes</div><div class="v">8&Prime; and 10&Prime;</div></div>
+  </section>
+
+</div>
+
+<footer class="band">
+  <div class="band-inner">
+    <img class="logo" src="assets/zebra-logo-white.svg" alt="Zebra" width="127" height="42" />
+    <div class="cta">
+      <div class="line">Ready when your routes are.</div>
+      <div class="sub">Talk to your Peak representative about what the ET401
+      lands at for your operation. <span class="b">Bring your toughest route — it can take it.</span></div>
+    </div>
+  </div>
+</footer>
+
+<div class="fineprint">
+  Zebra and the stylized Zebra head are trademarks of Zebra Technologies Corp.,
+  registered in many jurisdictions worldwide. Specifications from the official
+  Zebra ET401 specification sheet. Distributed by Peak for authorized service providers.
+</div>
+
+</body>
+</html>
