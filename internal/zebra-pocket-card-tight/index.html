@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zebra · Pocket Card — Internal</title>
+<style>
+  /* Zebra Sans / Zebra Mono are not in this repo, so official fallbacks are used:
+     Zebra Sans Condensed ExtraBold -> Arial Narrow Bold (headlines)
+     Zebra Sans Regular             -> Arial (body)
+     Zebra Mono Medium              -> Trebuchet MS (mono/eyebrow) */
+  :root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --gray-500: #757575;
+    --gray-50: #F2F2F2;
+    --impact-green: #A8F931;
+    --blue: #1F69FF;
+    --orange: #FF4D00;
+    --magenta: #FF40FC;
+    --headline: "Arial Narrow Bold", "Arial Narrow", Arial, Helvetica, sans-serif;
+    --body: Arial, Helvetica, sans-serif;
+    --mono: "Trebuchet MS", Verdana, Arial, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--gray-50);
+    color: var(--black);
+    font-family: var(--body);
+    line-height: 1.45;
+    padding: 24px 12px;
+  }
+  .card {
+    background: var(--white);
+    max-width: 400px;
+    margin: 0 auto;
+    border-top: 6px solid var(--black);
+    padding: 20px 20px 16px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+  }
+  h1 {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.05;
+    margin: 8px 0 14px;
+  }
+  .rule {
+    border-left: 3px solid var(--blue);
+    padding-left: 12px;
+    font-size: 14.5px;
+    line-height: 1.4;
+    margin-bottom: 22px;
+  }
+  .rule b { color: var(--blue); }
+  section { margin-bottom: 20px; }
+  .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 8px;
+    align-items: flex-start;
+  }
+  .chip { width: calc(25% - 6px); min-width: 74px; }
+  .sw { height: 34px; margin-bottom: 5px; }
+  .sw.edge { border: 1px solid var(--gray-500); }
+  .cn { font-size: 11.5px; font-weight: 700; line-height: 1.25; }
+  .hx { font-family: var(--mono); font-size: 10px; color: var(--gray-500); }
+  .tag {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    margin-top: 3px;
+  }
+  .tag.blue { color: var(--blue); }
+  .tag.gray { color: var(--gray-500); }
+  .chip.use { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .type p { margin-bottom: 8px; }
+  .type p:last-child { margin-bottom: 0; }
+  .t-head { font-family: var(--headline); font-weight: 700; font-size: 16px; line-height: 1.25; }
+  .t-body { font-family: var(--body); font-size: 13.5px; }
+  .t-eye {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .logo { list-style: none; }
+  .logo li {
+    position: relative;
+    padding-left: 14px;
+    font-size: 13.5px;
+    margin-bottom: 7px;
+  }
+  .logo li:last-child { margin-bottom: 0; }
+  .logo li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 5px;
+    height: 5px;
+    background: var(--black);
+  }
+  footer {
+    border-top: 1px solid var(--black);
+    padding-top: 10px;
+  }
+  footer p {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+  }
+  @media (min-width: 720px) {
+    body { padding: 48px 16px; }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <p class="eyebrow">Zebra · Pocket Card</p>
+  <h1>How we show up</h1>
+  <p class="rule">Customer decks use <b>Blue #1F69FF</b>. Do not use Impact Green as the accent.</p>
+
+  <section aria-label="Color">
+    <div class="label">Color</div>
+    <div class="chips">
+      <div class="chip">
+        <div class="sw edge" style="background:#FFFFFF"></div>
+        <div class="cn">White</div>
+        <div class="hx">#FFFFFF</div>
+      </div>
+      <div class="chip">
+        <div class="sw" style="background:#000000"></div>
+        <div class="cn">Black</div>
+        <div class="hx">#000000</div>
+      </div>
+      <div class="chip">
+        <div class="sw" style="background:#757575"></div>
+        <div class="cn">Gray 500</div>
+        <div class="hx">#757575</div>
+      </div>
+      <div class="chip">
+        <div class="sw edge" style="background:#F2F2F2"></div>
+        <div class="cn">Gray 50</div>
+        <div class="hx">#F2F2F2</div>
+      </div>
+      <div class="chip">
+        <div class="sw" style="background:#A8F931"></div>
+        <div class="cn">Impact Green</div>
+        <div class="hx">#A8F931</div>
+        <div class="tag gray">Official accent — not for customer decks</div>
+      </div>
+      <div class="chip use">
+        <div class="sw" style="background:#1F69FF"></div>
+        <div class="cn">Blue</div>
+        <div class="hx">#1F69FF</div>
+        <div class="tag blue">Anthony accent — Peak / FedEx / customer-facing</div>
+      </div>
+      <div class="chip">
+        <div class="sw" style="background:#FF4D00"></div>
+        <div class="cn">Orange</div>
+        <div class="hx">#FF4D00</div>
+      </div>
+      <div class="chip">
+        <div class="sw" style="background:#FF40FC"></div>
+        <div class="cn">Magenta</div>
+        <div class="hx">#FF40FC</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="type" aria-label="Type">
+    <div class="label">Type</div>
+    <p class="t-head">Headline: Zebra Sans Condensed ExtraBold — sentence case, never all caps.</p>
+    <p class="t-body">Body: Zebra Sans Regular — left aligned, 45&ndash;75 characters.</p>
+    <p class="t-eye">Eyebrow: Zebra Mono Medium — ALL CAPS only.</p>
+  </section>
+
+  <section aria-label="Logo">
+    <div class="label">Logo</div>
+    <ul class="logo">
+      <li>Black or white only.</li>
+      <li>Clear space = height of the letter Z on every side.</li>
+      <li>Don&rsquo;t recolor. Don&rsquo;t stretch, squeeze, or rotate. Don&rsquo;t put it on a low-contrast photo.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Internal. Not for customers.</p>
+  </footer>
+</main>
+</body>
+</html>
