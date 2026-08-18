@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TC77 to TC78 upgrade + Peak managed services — Peak Technologies × Zebra</title>
+<style>
+  :root{
+    --white:#FFFFFF;
+    --black:#000000;
+    --gray-500:#757575;
+    --gray-50:#F2F2F2;
+    --blue:#1F69FF;    /* customer-facing accent */
+    --orange:#FF4D00;  /* front-page credit callout, per existing flyer */
+    --headline:"Arial Narrow Bold","Arial Narrow",Arial,sans-serif;
+    --body:Arial,"Trebuchet MS",sans-serif;
+    --mono:"Courier New",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--gray-50);
+    color:var(--black);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.5;
+  }
+  .page{
+    background:var(--white);
+    width:min(100%,8.5in);
+    min-height:11in;
+    margin:0 auto 28px;
+    padding:clamp(20px,5vw,0.65in);
+    border:1px solid #e3e3e3;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Lockup: real Peak + Zebra marks. Padding keeps clear space >= Z height. */
+  .lockup{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    padding:16px 0 20px;
+  }
+  .lockup img{display:block;height:auto}
+  .lockup .peak{height:24px;width:auto}
+  .lockup .zebra{height:30px;width:auto}
+  .lockup .rule{width:1px;align-self:stretch;background:#d8d8d8}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gray-500);
+  }
+  h1,h2{
+    font-family:var(--headline);
+    font-weight:800;
+    line-height:1.04;
+    letter-spacing:.005em;
+  }
+  h1{font-size:clamp(30px,7vw,46px);margin:12px 0 14px}
+  h2{font-size:clamp(26px,6vw,38px);margin:12px 0 12px}
+  .lede{max-width:62ch}
+
+  /* Two views of the same TC78, locked to identical scale. */
+  .devices{
+    display:flex;
+    align-items:flex-end;
+    gap:clamp(12px,3vw,28px);
+    margin:26px 0 4px;
+  }
+  .devices figure{flex:1 1 0}
+  .devices img{width:100%;height:auto;display:block;background:var(--white)}
+  .devices figcaption{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--gray-500);
+    margin-top:8px;
+  }
+
+  .credit{
+    background:var(--orange);
+    color:var(--black);
+    padding:clamp(18px,4vw,28px);
+    margin-top:28px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 26px;
+  }
+  .credit .amount{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:clamp(48px,11vw,76px);
+    line-height:.95;
+  }
+  .credit .what{
+    font-family:var(--headline);
+    font-weight:700;
+    font-size:clamp(18px,4vw,24px);
+    line-height:1.1;
+  }
+  .credit .note{font-size:13.5px;line-height:1.45;max-width:62ch;flex-basis:100%}
+
+  .cta-row{margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .btn{
+    background:var(--blue);
+    color:var(--white);
+    text-decoration:none;
+    font-family:var(--headline);
+    font-weight:700;
+    font-size:16px;
+    padding:13px 24px;
+    border-radius:2px;
+    display:inline-block;
+  }
+  .cta-sub{font-size:13px;color:var(--gray-500)}
+
+  .page footer{
+    margin-top:auto;
+    padding-top:24px;
+    border-top:1px solid #e3e3e3;
+    font-size:11.5px;
+    line-height:1.5;
+    color:var(--gray-500);
+  }
+
+  /* Back page */
+  .intro{max-width:62ch;margin-bottom:6px}
+  .reasons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:18px;
+  }
+  .card{
+    background:var(--gray-50);
+    border:1px solid #e7e7e7;
+    padding:16px 16px 14px;
+  }
+  .card .num{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    color:var(--gray-500);
+  }
+  .card h3{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:19px;
+    line-height:1.1;
+    margin:8px 0 6px;
+  }
+  .card p{font-size:13.5px;line-height:1.45;max-width:65ch}
+
+  /* Services version only: one compact beat after the six reasons. */
+  .services{
+    margin-top:20px;
+    border-top:3px solid var(--black);
+    padding-top:16px;
+  }
+  .services h3{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:clamp(20px,4.5vw,24px);
+    margin:8px 0 12px;
+  }
+  .svc-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+  }
+  .svc-grid .svc{
+    background:var(--gray-50);
+    border:1px solid #e7e7e7;
+    padding:14px 14px 12px;
+  }
+  .svc-grid strong{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:15px;
+    display:block;
+    margin-bottom:4px;
+  }
+  .svc-grid p{font-size:12.5px;line-height:1.45}
+  .services .close{font-size:13.5px;margin-top:12px;max-width:65ch}
+
+  @media (max-width:560px){
+    .reasons{grid-template-columns:1fr}
+    .svc-grid{grid-template-columns:1fr}
+  }
+
+  @page{size:letter;margin:0}
+  @media print{
+    body{background:var(--white)}
+    .page{
+      border:none;
+      margin:0 auto;
+      width:8.5in;
+      height:11in;
+      min-height:0;
+      padding:0.55in;
+      page-break-after:always;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .page:last-child{page-break-after:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<section class="page" aria-label="Front">
+  <header class="lockup">
+    <img class="peak" src="assets/peak-technologies-logo.png" alt="Peak Technologies">
+    <span class="rule" aria-hidden="true"></span>
+    <img class="zebra" src="assets/zebra-logo-black.svg" alt="Zebra Technologies">
+  </header>
+
+  <p class="eyebrow">For independent service providers &middot; TC77 &rarr; TC78</p>
+  <h1>Retire the TC77. Roll out the TC78.</h1>
+  <p class="lede">Zebra has ended sale of the TC77. Its replacement is the TC78 &mdash; quicker in the hand, longer-ranging at the scan, and supported for years to come. Peak Technologies has stock on the shelf and a program window that makes the move easier.</p>
+
+  <div class="devices">
+    <figure>
+      <img src="assets/tc78-front.jpg" alt="Zebra TC78 mobile computer, front view">
+      <figcaption>TC78 &mdash; front</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/tc78-back.jpg" alt="Zebra TC78 mobile computer, back view">
+      <figcaption>TC78 &mdash; back</figcaption>
+    </figure>
+  </div>
+
+  <div class="credit">
+    <span class="amount">$900</span>
+    <span class="what">Verizon credit<br>May&ndash;June upgrade window</span>
+    <p class="note">When you move your fleet from the TC77 to the TC78 through Peak Technologies, the purchase can ride on your existing Verizon bill through BOBO (Bill On Behalf Of). Your Peak account team confirms eligibility and details before you commit.</p>
+  </div>
+
+  <div class="cta-row">
+    <a class="btn" href="https://www.peaktech.com">Talk to Peak about the window</a>
+    <span class="cta-sub">peaktech.com &middot; Zebra PartnerConnect partner</span>
+  </div>
+
+  <footer>
+    ZEBRA and the stylized Zebra head are trademarks of Zebra Technologies Corp., registered in many jurisdictions worldwide. Verizon credit available during the May&ndash;June program window; terms and eligibility confirmed by Peak Technologies.
+  </footer>
+</section>
+
+<!-- BACK -->
+<section class="page" aria-label="Back">
+  <p class="eyebrow">Six reasons</p>
+  <h2>Why the TC78, and why now</h2>
+  <p class="intro">Plain answers for owners running TC77s today.</p>
+
+  <div class="reasons">
+    <div class="card">
+      <span class="num">01</span>
+      <h3>The TC77 is at end of sale</h3>
+      <p>Zebra no longer sells the TC77. The TC78 is the designated replacement, so new buys and spares should move on your schedule &mdash; not the day a unit dies.</p>
+    </div>
+    <div class="card">
+      <span class="num">02</span>
+      <h3>Faster every tap</h3>
+      <p>A newer Qualcomm processor opens apps, reads scans, and signs in noticeably quicker than the TC77 &mdash; seconds saved on every stop.</p>
+    </div>
+    <div class="card">
+      <span class="num">03</span>
+      <h3>Scans near and far</h3>
+      <p>The TC78&rsquo;s advanced-range imager reads barcodes from arm&rsquo;s length to across the dock &mdash; roughly 40 feet. The TC77 is a standard-range scanner.</p>
+    </div>
+    <div class="card">
+      <span class="num">04</span>
+      <h3>Ready for newer networks</h3>
+      <p>5G and Wi-Fi 6E on the TC78, versus 4G LTE and Wi-Fi 5 on the TC77. Headroom for the network changes already rolling out.</p>
+    </div>
+    <div class="card">
+      <span class="num">05</span>
+      <h3>Years of updates left</h3>
+      <p>The TC78 runs a newer Android with a long security-support road ahead. The TC77&rsquo;s update window is at its end.</p>
+    </div>
+    <div class="card">
+      <span class="num">06</span>
+      <h3>Bigger screen, easier days</h3>
+      <p>A 6-inch screen versus the TC77&rsquo;s 4.7 inches &mdash; easier to read at a glance &mdash; plus warm-swap battery options and USB-C charging.</p>
+    </div>
+  </div>
+
+  <div class="services">
+    <p class="eyebrow">Peak managed services</p>
+    <h3>After the sale, Peak stays on</h3>
+    <div class="svc-grid">
+      <div class="svc">
+        <strong>Depot repair</strong>
+        <p>One call, one shipping path. Broken units go to Peak&rsquo;s depot and come back fixed.</p>
+      </div>
+      <div class="svc">
+        <strong>Staging and spares</strong>
+        <p>Devices arrive kitted and charged. Spares sit on Peak&rsquo;s shelf, not in your truck.</p>
+      </div>
+      <div class="svc">
+        <strong>Service contracts</strong>
+        <p>Zebra OneCare coverage managed through Peak, matched to how your fleet actually runs.</p>
+      </div>
+    </div>
+    <p class="close">You already have the relationship &mdash; stock, staging, and the depot path are in place before you sign.</p>
+  </div>
+
+  <footer>
+    Specifications are manufacturer-published figures for the TC78 and TC77. Credit amount and May&ndash;June window per the current Verizon program; Peak Technologies confirms details before you commit.
+  </footer>
+</section>
+
+</body>
+</html>
