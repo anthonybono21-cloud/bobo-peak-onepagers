@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TC78 Extended Battery Promo — Buy 600, Get 300 Free · Peak Technologies × Zebra</title>
+<style>
+  :root{
+    --black:#000000;
+    --field:#0B0B0B;
+    --panel:#161616;
+    --line:#2A2A2A;
+    --white:#FFFFFF;
+    --gray-500:#757575;
+    --gray-50:#F2F2F2;
+    --blue:#1F69FF;    /* Anthony override: the one customer-facing accent. No Impact Green. */
+    /* design.md type: Zebra faces named first, official fallbacks only */
+    --headline:"Zebra Sans Condensed Extrabold","Zebra Sans Condensed","Arial Narrow Bold","Arial Narrow",Arial,sans-serif;
+    --body:"Zebra Sans",Arial,"Trebuchet MS",sans-serif;
+    --mono:"Zebra Mono","Courier New",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:#1c1c1c;
+    color:var(--white);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.5;
+    letter-spacing:0; /* tracking 0 */
+  }
+  .page{
+    background:var(--field);
+    width:min(100%,8.5in);
+    min-height:11in;
+    margin:0 auto 28px;
+    padding:clamp(22px,5vw,0.55in);
+    border:1px solid #000;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Co-branded lockup, design.md math:
+     x = half the Zebra Head width (14.2% of wordmark width) each side of divider;
+     divider extends y (ear width, 16% of wordmark height) above/below;
+     divider width = 0.5z (half face stripe, 4.6% of wordmark height). */
+  .lockup{
+    --L:32px;
+    --W:calc(var(--L) * 37.501 / 12.287);
+    --x:calc(var(--W) * 0.142);
+    --y:calc(var(--L) * 0.16);
+    --halfz:max(1px, calc(var(--L) * 0.046));
+    display:flex;
+    align-items:center;
+    padding:calc(var(--y) + 6px) 0 calc(var(--y) + 14px);
+  }
+  .lockup .peak-side{display:flex;align-items:center;gap:10px;margin-right:var(--x)}
+  .lockup .peak-mark{height:calc(var(--L) * 0.82);width:auto;display:block}
+  .lockup .peak-name{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:calc(var(--L) * 0.52);
+    color:var(--white);
+    white-space:nowrap;
+  }
+  .lockup .divider{
+    width:var(--halfz);
+    align-self:stretch;
+    margin:calc(-1 * var(--y)) 0;
+    background:#4a4a4a;
+  }
+  .lockup .zebra{height:var(--L);width:auto;display:block;margin-left:var(--x)}
+  .lockup .internal{
+    margin-left:auto;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0;
+    text-transform:uppercase;
+    color:var(--gray-500);
+    border:1px solid var(--line);
+    padding:5px 10px;
+    white-space:nowrap;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0;
+    text-transform:uppercase;
+    color:var(--blue);
+  }
+  h1{
+    font-family:var(--headline);
+    font-weight:800;
+    line-height:.98;
+    letter-spacing:0;
+    font-size:clamp(40px,7.6vw,58px);
+    margin:10px 0 0;
+  }
+  .tagline{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:clamp(20px,4.6vw,30px);
+    line-height:1.05;
+    color:var(--blue);
+    margin-top:8px;
+  }
+
+  /* Two renders of the same TC78, locked to one physical size. */
+  .hero{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:clamp(28px,9vw,84px);
+    margin:clamp(14px,3vw,24px) 0 2px;
+  }
+  .hero figure{line-height:0}
+  .hero img{height:clamp(135px,24vw,168px);width:auto;display:block}
+  .hero figcaption{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0;
+    text-transform:uppercase;
+    color:var(--gray-500);
+    line-height:1.4;
+    margin-top:10px;
+    text-align:center;
+  }
+
+  .offer{
+    background:var(--blue);
+    color:var(--white);
+    padding:clamp(12px,2.6vw,16px) clamp(18px,4.5vw,28px);
+    margin-top:clamp(13px,2.8vw,20px);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:4px 26px;
+  }
+  .offer .amount{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:clamp(34px,7.5vw,52px);
+    line-height:.9;
+    white-space:nowrap;
+  }
+  .offer .what{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:clamp(17px,3.8vw,22px);
+    line-height:1.05;
+  }
+  .offer .note{
+    flex-basis:100%;
+    font-size:13.5px;
+    line-height:1.4;
+    font-weight:700;
+    max-width:72ch;
+  }
+
+  .board{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    margin-top:clamp(12px,2.8vw,18px);
+  }
+  .cell{
+    background:var(--panel);
+    border-left:3px solid var(--blue);
+    padding:11px 14px 10px;
+  }
+  .cell .num{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0;
+    color:var(--blue);
+    text-transform:uppercase;
+  }
+  .cell h3{
+    font-family:var(--headline);
+    font-weight:800;
+    font-size:18px;
+    line-height:1.05;
+    margin:4px 0 5px;
+  }
+  .cell p{font-size:12.5px;line-height:1.45;color:var(--gray-50);max-width:65ch}
+
+  .status{
+    border-top:1px solid var(--line);
+    margin-top:clamp(12px,2.8vw,18px);
+    padding-top:10px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0;
+    text-transform:uppercase;
+    color:var(--gray-500);
+    line-height:1.5;
+  }
+  .status strong{color:var(--white);font-weight:400}
+
+  .cta-row{margin-top:clamp(12px,2.8vw,18px);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .btn{
+    background:var(--blue);
+    color:var(--white);
+    text-decoration:none;
+    font-family:var(--headline);
+    font-weight:700;
+    font-size:15px;
+    padding:11px 24px;
+    border-radius:999px; /* pill, Anthony override */
+    display:inline-block;
+  }
+  .cta-sub{font-size:12.5px;color:var(--gray-500);max-width:54ch;line-height:1.4}
+
+  .page footer{
+    margin-top:auto;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    line-height:1.45;
+    color:var(--gray-500);
+  }
+
+  @media (max-width:640px){
+    .board{grid-template-columns:1fr}
+    .lockup .internal{display:none}
+  }
+  @media (max-width:420px){
+    .lockup .peak-name{display:none} /* triangle carries the mark on narrow screens */
+  }
+
+  @page{size:letter;margin:0}
+  @media print{
+    body{background:var(--field)}
+    .page{
+      border:none;
+      margin:0 auto;
+      width:8.5in;
+      height:11in;
+      min-height:0;
+      padding:0.45in 0.5in;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .hero img{height:150px}
+    h1{font-size:52px}
+    /* design.md floor: body text never under 10pt in print */
+    .page footer,.hero figcaption,.cell .num,.eyebrow,.status,.lockup .internal{font-size:10pt}
+    .cell p,.offer .note,.cta-sub{font-size:10.5pt}
+  }
+</style>
+</head>
+<body>
+
+<section class="page" aria-label="TC78 extended battery promo">
+  <header class="lockup">
+    <span class="peak-side">
+      <img class="peak-mark" src="assets/peak-mark-white.png" alt="Peak Technologies mark">
+      <span class="peak-name">Peak Technologies</span>
+    </span>
+    <span class="divider" aria-hidden="true"></span>
+    <img class="zebra" src="assets/zebra-logo-white.svg" alt="Zebra Technologies">
+    <span class="internal">Internal — Peak review copy</span>
+  </header>
+
+  <p class="eyebrow">Peak &times; Zebra partner promo &mdash; extended batteries</p>
+  <h1>Buy 600, get 300 free.</h1>
+  <p class="tagline">Extended batteries for the Zebra TC78.</p>
+
+  <div class="hero">
+    <figure>
+      <img src="assets/tc78-front.png" alt="Zebra TC78 mobile computer, front view">
+      <figcaption>TC78 &mdash; front</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/tc78-back.png" alt="Zebra TC78 mobile computer, back view">
+      <figcaption>TC78 &mdash; back</figcaption>
+    </figure>
+  </div>
+
+  <div class="offer">
+    <span class="amount">600 paid + 300 free</span>
+    <span class="what">TC78 extended batteries</span>
+    <p class="note">Buy 600 extended batteries for the Zebra TC78, get 300 free. A Peak &times; Zebra partner structure, so Peak sells at a discounted price &mdash; not through ISPs.</p>
+  </div>
+
+  <div class="board">
+    <div class="cell">
+      <span class="num">01 &mdash; The need</span>
+      <h3>Routes outlast standard batteries</h3>
+      <p>Long route days force mid-shift swaps &mdash; lost minutes at the door, dropped sessions. The TC78 extended battery carries 7,000 mAh and swaps in seconds.</p>
+    </div>
+    <div class="cell">
+      <span class="num">02 &mdash; The devices</span>
+      <h3>TC78 only</h3>
+      <p>Extended batteries for the Zebra TC78. Not the ET401, not any other device.</p>
+    </div>
+    <div class="cell">
+      <span class="num">03 &mdash; What Peak gets</span>
+      <h3>600 paid + 300 free</h3>
+      <p>600 paid units, 300 free &mdash; all TC78 extended batteries. The partner structure lets Peak quote a discounted price. Not an ISP offer.</p>
+    </div>
+  </div>
+
+  <p class="status">Deal status &mdash; <strong>submitted to Pat Bogan, Zebra FedEx account director, on August 18, 2026.</strong></p>
+
+  <div class="cta-row">
+    <a class="btn" href="https://www.peaktech.com">Next step &mdash; talk to Peak</a>
+    <span class="cta-sub">Confirm the TC78 fleet count, then quote through the partner structure. Questions on this promo: Anthony Bono, Peak Technologies.</span>
+  </div>
+
+  <footer>
+    Internal to Peak Technologies &mdash; review copy for Anthony Bono, not for customer distribution. Offer terms as submitted August 18, 2026; pricing quoted per deal. ZEBRA and the stylized Zebra head are trademarks of Zebra Technologies Corp., registered in many jurisdictions worldwide.
+  </footer>
+</section>
+
+</body>
+</html>
